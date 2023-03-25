@@ -1,0 +1,69 @@
+<div class="container main-container">
+  <h1>Cadastro</h1>
+
+  <form novalidate (ngSubmit)="adicionarConta()" [formGroup]="cadastroForm" #formDir="ngForm">
+
+      <h4>Crie sua conta</h4>
+      <hr>
+
+      <div class="alert alert-danger" *ngIf="errors.length > 0">
+        <h3 id="msgRetorno">Opa! Alguma coisa não deu certo:</h3>
+        <ul>
+            <li *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+      </div>
+
+
+      <div class="mb-3">
+          <label class="col-md-2 form-label">E-mail</label>
+          <div class="col-md-10">
+              <input class="form-control" id="email" type="text" placeholder="E-mail (requerido)" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"/>
+              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">O e-mail é obrigatório.</div>
+                <div *ngIf="f['email'].errors['email']">Informe um e-mail válido.</div>
+              </div>
+          </div>
+      </div>
+
+      <div class="mb-3">
+          <label class="col-md-2 form-label">Senha</label>
+          <div class="col-md-10">
+              <input class="form-control" id="password" type="password" placeholder="Senha (requerido)" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+              <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                <div *ngIf="f['password'].errors['required']">A senha é obrigatório.</div>
+                <div *ngIf="f['password'].errors['minlength']">
+                  A senha deve ter pelo menos 6 caracteres.
+                </div>
+                <div *ngIf="f['password'].errors['maxlength']">
+                  A senha não deve exceder 16 caracteres.
+                </div>
+                <div *ngIf="f['password'].errors['pattern']">
+                  A senha deve conter ao menos um dígito, uma letra minúscula, uma letra maiúscula e um caractere especial.
+                </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="mb-3">
+          <label class="col-md-2 form-label">Confirme a Senha</label>
+          <div class="col-md-10">
+              <input class="form-control" id="confirmPassword" type="password" placeholder="Confirme a Senha (requerido)" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }" />
+
+              <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+                <div *ngIf="f['confirmPassword'].errors['required']">
+                  Informe a senha novamente.
+                </div>
+                <div *ngIf="f['confirmPassword'].errors['matching']">
+                  As senhas não conferem.
+                </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="mb-3">
+          <div class="col-md-4 col-md-offset-2">
+              <span><button class="btn btn-success" id="Registrar" [disabled]="!cadastroForm.valid" type="submit">Registrar</button></span>
+          </div>
+      </div>
+  </form>
+</div>
